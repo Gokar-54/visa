@@ -42,16 +42,31 @@
             color: white;
             padding: 30px;
             text-align: center;
+            position: relative;
+        }
+        
+        header::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="%23ffffff" fill-opacity="0.1" d="M0,96L48,112C96,128,192,160,288,186.7C384,213,480,235,576,213.3C672,192,768,128,864,128C960,128,1056,192,1152,192C1248,192,1344,128,1392,96L1440,64L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path></svg>');
+            background-size: cover;
+            background-position: center;
         }
         
         header h1 {
             font-size: 2.2rem;
             margin-bottom: 10px;
+            position: relative;
         }
         
         header p {
             font-size: 1.1rem;
             opacity: 0.9;
+            position: relative;
         }
         
         .main-content {
@@ -67,6 +82,7 @@
             background: var(--light);
             border-radius: 8px;
             margin: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
         }
         
         .results-panel {
@@ -82,6 +98,12 @@
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
             padding: 20px;
             margin-bottom: 20px;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
         }
         
         h2 {
@@ -89,6 +111,12 @@
             margin-bottom: 15px;
             padding-bottom: 10px;
             border-bottom: 2px solid #eee;
+            display: flex;
+            align-items: center;
+        }
+        
+        h2::before {
+            margin-left: 10px;
         }
         
         .form-group {
@@ -107,6 +135,13 @@
             border: 1px solid #ddd;
             border-radius: 4px;
             font-size: 16px;
+            transition: border 0.3s;
+        }
+        
+        input:focus, select:focus, textarea:focus {
+            border-color: var(--primary);
+            outline: none;
+            box-shadow: 0 0 0 2px rgba(74, 111, 165, 0.2);
         }
         
         button {
@@ -118,13 +153,21 @@
             cursor: pointer;
             font-size: 16px;
             font-weight: 600;
-            transition: background 0.3s;
+            transition: all 0.3s;
             width: 100%;
             margin: 5px 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
         
         button:hover {
             background-color: #3a5a80;
+            transform: translateY(-2px);
+        }
+        
+        button:active {
+            transform: translateY(0);
         }
         
         button.success {
@@ -165,14 +208,41 @@
             padding: 15px;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
             border-left: 4px solid var(--primary);
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .card-item::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--primary);
+            transform: scaleX(0);
+            transition: transform 0.3s;
+        }
+        
+        .card-item:hover::before {
+            transform: scaleX(1);
         }
         
         .card-item.success {
             border-left-color: var(--success);
         }
         
+        .card-item.success::before {
+            background: var(--success);
+        }
+        
         .card-item.error {
             border-left-color: var(--danger);
+        }
+        
+        .card-item.error::before {
+            background: var(--danger);
         }
         
         .card-number {
@@ -180,6 +250,7 @@
             font-size: 18px;
             font-weight: bold;
             margin-bottom: 10px;
+            letter-spacing: 1px;
         }
         
         .card-details {
@@ -187,6 +258,7 @@
             justify-content: space-between;
             font-size: 14px;
             color: #666;
+            margin-bottom: 10px;
         }
         
         .status {
@@ -268,6 +340,7 @@
             border-radius: 50%;
             border-top-color: #fff;
             animation: spin 1s ease-in-out infinite;
+            margin-right: 10px;
         }
         
         @keyframes spin {
@@ -289,6 +362,7 @@
             z-index: 1000;
             opacity: 0;
             transition: opacity 0.3s;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
         }
         
         .notification.success {
@@ -302,13 +376,92 @@
         .notification.show {
             opacity: 1;
         }
+        
+        .server-response {
+            background: #f8f9fa;
+            border: 1px solid #e9ecef;
+            border-radius: 4px;
+            padding: 10px;
+            margin-top: 10px;
+            font-family: monospace;
+            font-size: 12px;
+            white-space: pre-wrap;
+            max-height: 150px;
+            overflow-y: auto;
+        }
+        
+        .copy-btn {
+            width: auto;
+            padding: 5px 10px;
+            font-size: 12px;
+            margin-top: 5px;
+            background: #6c757d;
+        }
+        
+        .copy-btn:hover {
+            background: #5a6268;
+        }
+        
+        .tabs {
+            display: flex;
+            margin-bottom: 15px;
+            border-bottom: 1px solid #ddd;
+        }
+        
+        .tab {
+            padding: 10px 20px;
+            cursor: pointer;
+            border-bottom: 3px solid transparent;
+            transition: all 0.3s;
+        }
+        
+        .tab.active {
+            border-bottom-color: var(--primary);
+            color: var(--primary);
+            font-weight: bold;
+        }
+        
+        .tab-content {
+            display: none;
+        }
+        
+        .tab-content.active {
+            display: block;
+        }
+        
+        .floating-info {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            z-index: 100;
+            max-width: 300px;
+        }
+        
+        .floating-info h3 {
+            margin-bottom: 10px;
+            color: var(--primary);
+        }
+        
+        .info-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 5px;
+        }
+        
+        .info-label {
+            font-weight: bold;
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <header>
             <h1>🛡️ مولد وفحص بطاقات فيزا</h1>
-            <p>أداة متقدمة لتوليد وفحص بطاقات فيزا عشوائية</p>
+            <p>أداة متقدمة لتوليد وفحص بطاقات فيزا عشوائية مع عرض رد السيرفر</p>
         </header>
         
         <div class="main-content">
@@ -327,7 +480,10 @@
                     </div>
                     
                     <div id="single-mode" class="mode-options">
-                        <button id="generate-single" class="success">🔄 توليد وفحص بطاقة عشوائية</button>
+                        <button id="generate-single" class="success">
+                            <span class="loading hidden"></span>
+                            🔄 توليد وفحص بطاقة عشوائية
+                        </button>
                     </div>
                     
                     <div id="manual-mode" class="mode-options hidden">
@@ -335,7 +491,10 @@
                             <label for="card-input">بيانات البطاقة (n|mm|yy|cvc):</label>
                             <input type="text" id="card-input" placeholder="1234567890123456|12|25|123">
                         </div>
-                        <button id="check-manual" class="success">🔍 فحص البطاقة</button>
+                        <button id="check-manual" class="success">
+                            <span class="loading hidden"></span>
+                            🔍 فحص البطاقة
+                        </button>
                     </div>
                     
                     <div id="continuous-mode" class="mode-options hidden">
@@ -361,7 +520,10 @@
                             <label for="file-input">رفع ملف الكومبو:</label>
                             <input type="file" id="file-input" accept=".txt">
                         </div>
-                        <button id="check-combo" class="success">🔍 فحص الكومبو</button>
+                        <button id="check-combo" class="success">
+                            <span class="loading hidden"></span>
+                            🔍 فحص الكومبو
+                        </button>
                         <div class="progress-bar">
                             <div class="progress" id="combo-progress"></div>
                         </div>
@@ -402,24 +564,49 @@
             </div>
             
             <div class="results-panel">
-                <div class="card">
-                    <h2>📋 النتائج</h2>
-                    <div id="results-container" class="card-grid">
-                        <div class="card-item">
-                            <p>لم يتم فحص أي بطاقات بعد. استخدم لوحة التحكم لبدء الفحص.</p>
+                <div class="tabs">
+                    <div class="tab active" data-tab="results">📋 النتائج</div>
+                    <div class="tab" data-tab="approved">✅ الناجحة</div>
+                </div>
+                
+                <div id="results-tab" class="tab-content active">
+                    <div class="card">
+                        <h2>📋 نتائج الفحص</h2>
+                        <div id="results-container" class="card-grid">
+                            <div class="card-item">
+                                <p>لم يتم فحص أي بطاقات بعد. استخدم لوحة التحكم لبدء الفحص.</p>
+                            </div>
                         </div>
                     </div>
                 </div>
                 
-                <div class="card">
-                    <h2>💳 البطاقات الناجحة</h2>
-                    <div id="approved-container" class="card-grid">
-                        <div class="card-item">
-                            <p>لا توجد بطاقات ناجحة حتى الآن.</p>
+                <div id="approved-tab" class="tab-content">
+                    <div class="card">
+                        <h2>💳 البطاقات الناجحة</h2>
+                        <div id="approved-container" class="card-grid">
+                            <div class="card-item">
+                                <p>لا توجد بطاقات ناجحة حتى الآن.</p>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
+        </div>
+    </div>
+    
+    <div class="floating-info">
+        <h3>📈 معلومات سريعة</h3>
+        <div class="info-item">
+            <span class="info-label">البطاقات المفحوصة:</span>
+            <span id="floating-total">0</span>
+        </div>
+        <div class="info-item">
+            <span class="info-label">البطاقات الناجحة:</span>
+            <span id="floating-success">0</span>
+        </div>
+        <div class="info-item">
+            <span class="info-label">معدل النجاح:</span>
+            <span id="floating-rate">0%</span>
         </div>
     </div>
     
@@ -446,6 +633,533 @@
             stopContinuous: document.getElementById('stop-continuous'),
             continuousProgress: document.getElementById('continuous-progress'),
             continuousCount: document.getElementById('continuous-count'),
+            successCount: document.        
+        h2 {
+            color: var(--primary);
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #eee;
+            display: flex;
+            align-items: center;
+        }
+        
+        h2::before {
+            margin-left: 10px;
+        }
+        
+        .form-group {
+            margin-bottom: 15px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 600;
+        }
+        
+        input, select, textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 16px;
+            transition: border 0.3s;
+        }
+        
+        input:focus, select:focus, textarea:focus {
+            border-color: var(--primary);
+            outline: none;
+            box-shadow: 0 0 0 2px rgba(74, 111, 165, 0.2);
+        }
+        
+        button {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 600;
+            transition: all 0.3s;
+            width: 100%;
+            margin: 5px 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        button:hover {
+            background-color: #3a5a80;
+            transform: translateY(-2px);
+        }
+        
+        button:active {
+            transform: translateY(0);
+        }
+        
+        button.success {
+            background-color: var(--success);
+        }
+        
+        button.success:hover {
+            background-color: #218838;
+        }
+        
+        button.danger {
+            background-color: var(--danger);
+        }
+        
+        button.danger:hover {
+            background-color: #c82333;
+        }
+        
+        button.warning {
+            background-color: var(--warning);
+            color: var(--dark);
+        }
+        
+        button.warning:hover {
+            background-color: #e0a800;
+        }
+        
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 15px;
+            margin-top: 15px;
+        }
+        
+        .card-item {
+            background: white;
+            border-radius: 8px;
+            padding: 15px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            border-left: 4px solid var(--primary);
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .card-item::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--primary);
+            transform: scaleX(0);
+            transition: transform 0.3s;
+        }
+        
+        .card-item:hover::before {
+            transform: scaleX(1);
+        }
+        
+        .card-item.success {
+            border-left-color: var(--success);
+        }
+        
+        .card-item.success::before {
+            background: var(--success);
+        }
+        
+        .card-item.error {
+            border-left-color: var(--danger);
+        }
+        
+        .card-item.error::before {
+            background: var(--danger);
+        }
+        
+        .card-number {
+            font-family: monospace;
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 10px;
+            letter-spacing: 1px;
+        }
+        
+        .card-details {
+            display: flex;
+            justify-content: space-between;
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 10px;
+        }
+        
+        .status {
+            display: inline-block;
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: bold;
+        }
+        
+        .status.success {
+            background-color: rgba(40, 167, 69, 0.2);
+            color: var(--success);
+        }
+        
+        .status.error {
+            background-color: rgba(220, 53, 69, 0.2);
+            color: var(--danger);
+        }
+        
+        .status.pending {
+            background-color: rgba(255, 193, 7, 0.2);
+            color: #856404;
+        }
+        
+        .progress-bar {
+            height: 10px;
+            background-color: #e9ecef;
+            border-radius: 5px;
+            overflow: hidden;
+            margin: 10px 0;
+        }
+        
+        .progress {
+            height: 100%;
+            background-color: var(--primary);
+            width: 0%;
+            transition: width 0.3s;
+        }
+        
+        .stats {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+            padding-top: 15px;
+            border-top: 1px solid #eee;
+        }
+        
+        .stat-item {
+            text-align: center;
+        }
+        
+        .stat-value {
+            font-size: 24px;
+            font-weight: bold;
+            color: var(--primary);
+        }
+        
+        .stat-label {
+            font-size: 14px;
+            color: #666;
+        }
+        
+        @media (max-width: 768px) {
+            .main-content {
+                flex-direction: column;
+            }
+            
+            .control-panel, .results-panel {
+                min-width: 100%;
+            }
+        }
+        
+        .loading {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(255,255,255,.3);
+            border-radius: 50%;
+            border-top-color: #fff;
+            animation: spin 1s ease-in-out infinite;
+            margin-right: 10px;
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        
+        .hidden {
+            display: none;
+        }
+        
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 15px 20px;
+            border-radius: 5px;
+            color: white;
+            font-weight: bold;
+            z-index: 1000;
+            opacity: 0;
+            transition: opacity 0.3s;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+        
+        .notification.success {
+            background-color: var(--success);
+        }
+        
+        .notification.error {
+            background-color: var(--danger);
+        }
+        
+        .notification.show {
+            opacity: 1;
+        }
+        
+        .server-response {
+            background: #f8f9fa;
+            border: 1px solid #e9ecef;
+            border-radius: 4px;
+            padding: 10px;
+            margin-top: 10px;
+            font-family: monospace;
+            font-size: 12px;
+            white-space: pre-wrap;
+            max-height: 150px;
+            overflow-y: auto;
+        }
+        
+        .copy-btn {
+            width: auto;
+            padding: 5px 10px;
+            font-size: 12px;
+            margin-top: 5px;
+            background: #6c757d;
+        }
+        
+        .copy-btn:hover {
+            background: #5a6268;
+        }
+        
+        .tabs {
+            display: flex;
+            margin-bottom: 15px;
+            border-bottom: 1px solid #ddd;
+        }
+        
+        .tab {
+            padding: 10px 20px;
+            cursor: pointer;
+            border-bottom: 3px solid transparent;
+            transition: all 0.3s;
+        }
+        
+        .tab.active {
+            border-bottom-color: var(--primary);
+            color: var(--primary);
+            font-weight: bold;
+        }
+        
+        .tab-content {
+            display: none;
+        }
+        
+        .tab-content.active {
+            display: block;
+        }
+        
+        .floating-info {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            z-index: 100;
+            max-width: 300px;
+        }
+        
+        .floating-info h3 {
+            margin-bottom: 10px;
+            color: var(--primary);
+        }
+        
+        .info-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 5px;
+        }
+        
+        .info-label {
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🛡️ مولد وفحص بطاقات فيزا</h1>
+            <p>أداة متقدمة لتوليد وفحص بطاقات فيزا عشوائية مع عرض رد السيرفر</p>
+        </header>
+        
+        <div class="main-content">
+            <div class="control-panel">
+                <div class="card">
+                    <h2>🎛️ لوحة التحكم</h2>
+                    
+                    <div class="form-group">
+                        <label for="mode">وضع التشغيل:</label>
+                        <select id="mode">
+                            <option value="single">فحص بطاقة واحدة</option>
+                            <option value="manual">فحص بطاقة يدوي</option>
+                            <option value="continuous">التوليد المستمر</option>
+                            <option value="combo">فحص كومبو من ملف</option>
+                        </select>
+                    </div>
+                    
+                    <div id="single-mode" class="mode-options">
+                        <button id="generate-single" class="success">
+                            <span class="loading hidden"></span>
+                            🔄 توليد وفحص بطاقة عشوائية
+                        </button>
+                    </div>
+                    
+                    <div id="manual-mode" class="mode-options hidden">
+                        <div class="form-group">
+                            <label for="card-input">بيانات البطاقة (n|mm|yy|cvc):</label>
+                            <input type="text" id="card-input" placeholder="1234567890123456|12|25|123">
+                        </div>
+                        <button id="check-manual" class="success">
+                            <span class="loading hidden"></span>
+                            🔍 فحص البطاقة
+                        </button>
+                    </div>
+                    
+                    <div id="continuous-mode" class="mode-options hidden">
+                        <button id="start-continuous" class="warning">▶️ بدء التوليد المستمر</button>
+                        <button id="stop-continuous" class="danger hidden">⏹️ إيقاف التوليد المستمر</button>
+                        <div class="progress-bar">
+                            <div class="progress" id="continuous-progress"></div>
+                        </div>
+                        <div class="stats">
+                            <div class="stat-item">
+                                <div class="stat-value" id="continuous-count">0</div>
+                                <div class="stat-label">البطاقات المفحوصة</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-value" id="success-count">0</div>
+                                <div class="stat-label">الناجحة</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div id="combo-mode" class="mode-options hidden">
+                        <div class="form-group">
+                            <label for="file-input">رفع ملف الكومبو:</label>
+                            <input type="file" id="file-input" accept=".txt">
+                        </div>
+                        <button id="check-combo" class="success">
+                            <span class="loading hidden"></span>
+                            🔍 فحص الكومبو
+                        </button>
+                        <div class="progress-bar">
+                            <div class="progress" id="combo-progress"></div>
+                        </div>
+                        <div class="stats">
+                            <div class="stat-item">
+                                <div class="stat-value" id="combo-count">0</div>
+                                <div class="stat-label">البطاقات المفحوصة</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-value" id="combo-success">0</div>
+                                <div class="stat-label">الناجحة</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group" style="margin-top: 20px;">
+                        <button id="clear-results" class="danger">🗑️ مسح النتائج</button>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <h2>📊 الإحصائيات</h2>
+                    <div class="stats">
+                        <div class="stat-item">
+                            <div class="stat-value" id="total-checked">0</div>
+                            <div class="stat-label">إجمالي المفحوصة</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value" id="total-success">0</div>
+                            <div class="stat-label">إجمالي الناجحة</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value" id="success-rate">0%</div>
+                            <div class="stat-label">معدل النجاح</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="results-panel">
+                <div class="tabs">
+                    <div class="tab active" data-tab="results">📋 النتائج</div>
+                    <div class="tab" data-tab="approved">✅ الناجحة</div>
+                </div>
+                
+                <div id="results-tab" class="tab-content active">
+                    <div class="card">
+                        <h2>📋 نتائج الفحص</h2>
+                        <div id="results-container" class="card-grid">
+                            <div class="card-item">
+                                <p>لم يتم فحص أي بطاقات بعد. استخدم لوحة التحكم لبدء الفحص.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div id="approved-tab" class="tab-content">
+                    <div class="card">
+                        <h2>💳 البطاقات الناجحة</h2>
+                        <div id="approved-container" class="card-grid">
+                            <div class="card-item">
+                                <p>لا توجد بطاقات ناجحة حتى الآن.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="floating-info">
+        <h3>📈 معلومات سريعة</h3>
+        <div class="info-item">
+            <span class="info-label">البطاقات المفحوصة:</span>
+            <span id="floating-total">0</span>
+        </div>
+        <div class="info-item">
+            <span class="info-label">البطاقات الناجحة:</span>
+            <span id="floating-success">0</span>
+        </div>
+        <div class="info-item">
+            <span class="info-label">معدل النجاح:</span>
+            <span id="floating-rate">0%</span>
+        </div>
+    </div>
+    
+    <div id="notification" class="notification"></div>
+
+    <script>
+        // حالة التطبيق
+        const state = {
+            totalChecked: 0,
+            totalSuccess: 0,
+            approvedCards: [],
+            isContinuousRunning: false,
+            continuousInterval: null
+        };
+        // عناصر DOM
+        const elements = {
+            mode: document.getElementById('mode'),
+            modeOptions: document.querySelectorAll('.mode-options'),
+            generateSingle: document.getElementById('generate-single'),
+            cardInput: document.getElementById('card-input'),
+            checkManual: document.getElementById('check-manual'),
+            startContinuous: document.getElementById('start-continuous'),
+            stopContinuous: document.getElementById('stop-continuous'),
+            continuousProgress: document.getElementById('continuous-progress'),
+            continuousCount: document.getElementById('continuous-count'),
             successCount: document.getElementById('success-count'),
             fileInput: document.getElementById('file-input'),
             checkCombo: document.getElementById('check-combo'),
@@ -458,7 +1172,12 @@
             totalChecked: document.getElementById('total-checked'),
             totalSuccess: document.getElementById('total-success'),
             successRate: document.getElementById('success-rate'),
-            notification: document.getElementById('notification')
+            notification: document.getElementById('notification'),
+            tabs: document.querySelectorAll('.tab'),
+            tabContents: document.querySelectorAll('.tab-content'),
+            floatingTotal: document.getElementById('floating-total'),
+            floatingSuccess: document.getElementById('floating-success'),
+            floatingRate: document.getElementById('floating-rate')
         };
 
         // استدعاءات API - محاكاة لأننا لا نستطيع الوصول إلى Stripe مباشرة من المتصفح
@@ -481,11 +1200,48 @@
                 // محاكاة النتائج العشوائية
                 const random = Math.random();
                 if (random > 0.7) {
-                    return '✅ CHARGE 1.00$ - SUCCESS';
+                    // نجاح الدفع مع رد مفصل من السيرفر
+                    return {
+                        success: true,
+                        message: '✅ CHARGE 1.00$ - SUCCESS',
+                        serverResponse: JSON.stringify({
+                            id: 'ch_' + Math.random().toString(36).substring(2, 15),
+                            object: 'charge',
+                            amount: 100,
+                            amount_captured: 100,
+                            balance_transaction: 'txn_' + Math.random().toString(36).substring(2, 15),
+                            captured: true,
+                            created: Math.floor(Date.now() / 1000),
+                            currency: 'usd',
+                            paid: true,
+                            status: 'succeeded',
+                            receipt_url: 'https://pay.stripe.com/receipts/payment/' + Math.random().toString(36).substring(2, 15)
+                        }, null, 2)
+                    };
                 } else if (random > 0.4) {
-                    return '❌ DECLINED: Insufficient funds';
+                    return {
+                        success: false,
+                        message: '❌ DECLINED: Insufficient funds',
+                        serverResponse: JSON.stringify({
+                            error: {
+                                type: 'card_error',
+                                code: 'card_declined',
+                                decline_code: 'insufficient_funds',
+                                message: 'Your card has insufficient funds.'
+                            }
+                        }, null, 2)
+                    };
                 } else {
-                    return '❌ DECLINED: Invalid card';
+                    return {
+                        success: false,
+                        message: '❌ DECLINED: Invalid card',
+                        serverResponse: JSON.stringify({
+                            error: {
+                                type: 'invalid_request_error',
+                                message: 'Invalid card number'
+                            }
+                        }, null, 2)
+                    };
                 }
             }
         };
@@ -504,7 +1260,7 @@
             
             // توليد تاريخ انتهاء صالح
             const month = String(Math.floor(Math.random() * 12) + 1).padStart(2, '0');
-            const year = String(Math.floor(Math.random() * 7) + 29); // 2024-2030
+            const year = String(Math.floor(Math.random() * 7) + 24); // 2024-2030
             
             // توليد CVV
             const cvv = String(Math.floor(Math.random() * 900) + 100);
@@ -549,14 +1305,18 @@
             const resultId = 'result-' + Date.now();
             addResultCard(cardData, '⏳ جاري الفحص...', 'pending', resultId);
             
+            // إظهار مؤشر التحميل على الزر المناسب
+            const loadingElement = document.querySelector(`#${isManual ? 'check-manual' : 'generate-single'} .loading`);
+            loadingElement.classList.remove('hidden');
+            
             try {
                 const siteData = await api.fetchSiteData();
                 const result = await api.processPayment(cardData, siteData);
                 
-                updateResultCard(resultId, cardData, result, result.includes('SUCCESS') ? 'success' : 'error');
+                updateResultCard(resultId, cardData, result.message, result.success ? 'success' : 'error', result.serverResponse);
                 
-                if (result.includes('SUCCESS')) {
-                    addApprovedCard(cardData, result);
+                if (result.success) {
+                    addApprovedCard(cardData, result.message, result.serverResponse);
                     state.totalSuccess++;
                     showNotification('✅ تمت إضافة بطاقة ناجحة!', 'success');
                 }
@@ -569,13 +1329,299 @@
                 updateResultCard(resultId, cardData, '❌ ERROR: ' + error.message, 'error');
                 state.totalChecked++;
                 updateStats();
-                return 'error';
+                return {success: false, message: 'error'};
+            } finally {
+                // إخفاء مؤشر التحميل
+                loadingElement.classList.add('hidden');
             }
         }
 
         // إضافة بطاقة نتيجة
-        function addResultCard(cardData, status, type = 'pending', id = null) {
+        function addResultCard(cardData, status, type = 'pending', id = null, serverResponse = null) {
             const cardElement = document.createElement('div');
             cardElement.className = `card-item ${type}`;
             if (id) cardElement.id = id;
-   
+            
+            const [number, month, year, cvv] = cardData.split('|');
+            
+            cardElement.innerHTML = `
+                <div class="card-number">${number}</div>
+                <div class="card-details">
+                    <span>${month}/${year}</span>
+                    <span>CVV: ${cvv}</span>
+                </div>
+                <div class="status ${type}">${status}</div>
+            `;
+            
+            // إضافة رد السيرفر إذا كان متوفرًا
+            if (serverResponse) {
+                cardElement.innerHTML += `
+                    <div class="server-response">${serverResponse}</div>
+                    <button class="copy-btn" onclick="copyToClipboard('${serverResponse.replace(/'/g, "\\'")}')">نسخ رد السيرفر</button>
+                `;
+            }
+            
+            elements.resultsContainer.prepend(cardElement);
+            
+            // إزالة الرسالة الافتراضية إذا كانت موجودة
+            const defaultMsg = elements.resultsContainer.querySelector('.card-item p');
+            if (defaultMsg && elements.resultsContainer.children.length > 1) {
+                defaultMsg.remove();
+            }
+        }
+
+        // تحديث بطاقة نتيجة
+        function updateResultCard(id, cardData, status, type, serverResponse = null) {
+            const cardElement = document.getElementById(id);
+            if (cardElement) {
+                const [number, month, year, cvv] = cardData.split('|');
+                
+                cardElement.className = `card-item ${type}`;
+                cardElement.innerHTML = `
+                    <div class="card-number">${number}</div>
+                    <div class="card-details">
+                        <span>${month}/${year}</span>
+                        <span>CVV: ${cvv}</span>
+                    </div>
+                    <div class="status ${type}">${status}</div>
+                `;
+                
+                // إضافة رد السيرفر إذا كان متوفرًا
+                if (serverResponse) {
+                    cardElement.innerHTML += `
+                        <div class="server-response">${serverResponse}</div>
+                        <button class="copy-btn" onclick="copyToClipboard('${serverResponse.replace(/'/g, "\\'")}')">نسخ رد السيرفر</button>
+                    `;
+                }
+            }
+        }
+
+        // إضافة بطاقة ناجحة
+        function addApprovedCard(cardData, result, serverResponse = null) {
+            state.approvedCards.push({card: cardData, result: result, serverResponse: serverResponse});
+            
+            const cardElement = document.createElement('div');
+            cardElement.className = 'card-item success';
+            
+            const [number, month, year, cvv] = cardData.split('|');
+            
+            cardElement.innerHTML = `
+                <div class="card-number">${number}</div>
+                <div class="card-details">
+                    <span>${month}/${year}</span>
+                    <span>CVV: ${cvv}</span>
+                </div>
+                <div class="status success">${result}</div>
+            `;
+            
+            // إضافة رد السيرفر إذا كان متوفرًا
+            if (serverResponse) {
+                cardElement.innerHTML += `
+                    <div class="server-response">${serverResponse}</div>
+                    <button class="copy-btn" onclick="copyToClipboard('${serverResponse.replace(/'/g, "\\'")}')">نسخ رد السيرفر</button>
+                `;
+            }
+            
+            elements.approvedContainer.prepend(cardElement);
+            
+            // إزالة الرسالة الافتراضية إذا كانت موجودة
+            const defaultMsg = elements.approvedContainer.querySelector('.card-item p');
+            if (defaultMsg) {
+                defaultMsg.remove();
+            }
+        }
+
+        // تحديث الإحصائيات
+        function updateStats() {
+            elements.totalChecked.textContent = state.totalChecked;
+            elements.totalSuccess.textContent = state.totalSuccess;
+            elements.successRate.textContent = state.totalChecked > 0 
+                ? Math.round((state.totalSuccess / state.totalChecked) * 100) + '%' 
+                : '0%';
+                
+            // تحديث المعلومات العائمة
+            elements.floatingTotal.textContent = state.totalChecked;
+            elements.floatingSuccess.textContent = state.totalSuccess;
+            elements.floatingRate.textContent = state.totalChecked > 0 
+                ? Math.round((state.totalSuccess / state.totalChecked) * 100) + '%' 
+                : '0%';
+        }
+
+        // إظهار الإشعار
+        function showNotification(message, type) {
+            elements.notification.textContent = message;
+            elements.notification.className = `notification ${type} show`;
+            
+            setTimeout(() => {
+                elements.notification.classList.remove('show');
+            }, 3000);
+        }
+
+        // نسخ النص إلى الحافظة
+        function copyToClipboard(text) {
+            navigator.clipboard.writeText(text).then(() => {
+                showNotification('✅ تم نسخ رد السيرفر إلى الحافظة', 'success');
+            }).catch(err => {
+                showNotification('❌ فشل نسخ النص', 'error');
+            });
+        }
+
+        // معالجة تغيير وضع التشغيل
+        elements.mode.addEventListener('change', function() {
+            // إخفاء جميع خيارات الأوضاع
+            elements.modeOptions.forEach(option => {
+                option.classList.add('hidden');
+            });
+            
+            // إظهار الوضع المحدد
+            document.getElementById(`${this.value}-mode`).classList.remove('hidden');
+        });
+
+        // معالجة التبديل بين التبويبات
+        elements.tabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                // إزالة النشاط من جميع التبويبات
+                elements.tabs.forEach(t => t.classList.remove('active'));
+                elements.tabContents.forEach(c => c.classList.remove('active'));
+                
+                // إضافة النشاط للتبويب المحدد
+                tab.classList.add('active');
+                document.getElementById(`${tab.dataset.tab}-tab`).classList.add('active');
+            });
+        });
+
+        // توليد وفحص بطاقة عشوائية واحدة
+        elements.generateSingle.addEventListener('click', async function() {
+            const card = generateVisa();
+            await checkSingleCard(card);
+        });
+
+        // فحص بطاقة يدوية
+        elements.checkManual.addEventListener('click', async function() {
+            const card = elements.cardInput.value.trim();
+            if (!card) {
+                showNotification('❌ الرجاء إدخال بيانات البطاقة', 'error');
+                return;
+            }
+            
+            await checkSingleCard(card, true);
+            elements.cardInput.value = '';
+        });
+
+        // بدء التوليد المستمر
+        elements.startContinuous.addEventListener('click', function() {
+            state.isContinuousRunning = true;
+            elements.startContinuous.classList.add('hidden');
+            elements.stopContinuous.classList.remove('hidden');
+            
+            let count = 0;
+            let success = 0;
+            
+            elements.continuousCount.textContent = count;
+            elements.successCount.textContent = success;
+            
+            state.continuousInterval = setInterval(async () => {
+                if (!state.isContinuousRunning) return;
+                
+                const card = generateVisa();
+                const result = await checkSingleCard(card);
+                
+                count++;
+                if (result.success) success++;
+                
+                elements.continuousCount.textContent = count;
+                elements.successCount.textContent = success;
+                elements.continuousProgress.style.width = (count % 100) + '%';
+            }, 5000); // فحص كل 5 ثواني
+        });
+
+        // إيقاف التوليد المستمر
+        elements.stopContinuous.addEventListener('click', function() {
+            state.isContinuousRunning = false;
+            clearInterval(state.continuousInterval);
+            elements.startContinuous.classList.remove('hidden');
+            elements.stopContinuous.classList.add('hidden');
+            showNotification('⏹️ تم إيقاف التوليد المستمر', 'success');
+        });
+
+        // فحص كومبو من ملف
+        elements.checkCombo.addEventListener('click', function() {
+            const file = elements.fileInput.files[0];
+            if (!file) {
+                showNotification('❌ الرجاء اختيار ملف', 'error');
+                return;
+            }
+            
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const cards = e.target.result.split('\n').filter(line => line.trim() !== '');
+                
+                if (cards.length === 0) {
+                    showNotification('❌ الملف لا يحتوي على بطاقات', 'error');
+                    return;
+                }
+                
+                let processed = 0;
+                let success = 0;
+                
+                elements.comboCount.textContent = processed;
+                elements.comboSuccess.textContent = success;
+                
+                const processNextCard = async () => {
+                    if (processed >= cards.length) {
+                        showNotification('✅ تم الانتهاء من فحص جميع البطاقات', 'success');
+                        return;
+                    }
+                    
+                    const card = cards[processed].trim();
+                    if (card) {
+                        const result = await checkSingleCard(card);
+                        processed++;
+                        
+                        if (result.success) success++;
+                        
+                        elements.comboCount.textContent = processed;
+                        elements.comboSuccess.textContent = success;
+                        elements.comboProgress.style.width = (processed / cards.length * 100) + '%';
+                        
+                        // معالجة البطاقة التالية بعد تأخير
+                        setTimeout(processNextCard, 3000);
+                    } else {
+                        processed++;
+                        processNextCard();
+                    }
+                };
+                
+                processNextCard();
+            };
+            
+            reader.readAsText(file);
+        });
+
+        // مسح النتائج
+        elements.clearResults.addEventListener('click', function() {
+            state.totalChecked = 0;
+            state.totalSuccess = 0;
+            state.approvedCards = [];
+            
+            elements.resultsContainer.innerHTML = `
+                <div class="card-item">
+                    <p>لم يتم فحص أي بطاقات بعد. استخدم لوحة التحكم لبدء الفحص.</p>
+                </div>
+            `;
+            
+            elements.approvedContainer.innerHTML = `
+                <div class="card-item">
+                    <p>لا توجد بطاقات ناجحة حتى الآن.</p>
+                </div>
+            `;
+            
+            updateStats();
+            showNotification('🗑️ تم مسح جميع النتائج', 'success');
+        });
+
+        // التهيئة الأولية
+        updateStats();
+    </script>
+</body>
+</html>
