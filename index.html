@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>مولد وفحص بطاقات فيزا</title>
+    <title>محاكاة عملية الدفع مع رد السيرفر</title>
     <style>
         :root {
             --primary: #4a6fa5;
@@ -22,18 +22,19 @@
         }
         
         body {
-            background-color: #f5f7fa;
+            background: linear-gradient(135deg, #1e3c72, #2a5298);
             color: #333;
             line-height: 1.6;
             padding: 20px;
+            min-height: 100vh;
         }
         
         .container {
             max-width: 1200px;
             margin: 0 auto;
             background: white;
-            border-radius: 10px;
-            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
             overflow: hidden;
         }
         
@@ -80,7 +81,7 @@
             min-width: 300px;
             padding: 20px;
             background: var(--light);
-            border-radius: 8px;
+            border-radius: 10px;
             margin: 10px;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
         }
@@ -94,7 +95,7 @@
         
         .card {
             background: white;
-            border-radius: 8px;
+            border-radius: 10px;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
             padding: 20px;
             margin-bottom: 20px;
@@ -131,9 +132,9 @@
         
         input, select, textarea {
             width: 100%;
-            padding: 10px;
+            padding: 12px;
             border: 1px solid #ddd;
-            border-radius: 4px;
+            border-radius: 6px;
             font-size: 16px;
             transition: border 0.3s;
         }
@@ -141,15 +142,15 @@
         input:focus, select:focus, textarea:focus {
             border-color: var(--primary);
             outline: none;
-            box-shadow: 0 0 0 2px rgba(74, 111, 165, 0.2);
+            box-shadow: 0 0 0 3px rgba(74, 111, 165, 0.2);
         }
         
         button {
             background-color: var(--primary);
             color: white;
             border: none;
-            padding: 12px 20px;
-            border-radius: 4px;
+            padding: 14px 20px;
+            border-radius: 6px;
             cursor: pointer;
             font-size: 16px;
             font-weight: 600;
@@ -251,6 +252,9 @@
             font-weight: bold;
             margin-bottom: 10px;
             letter-spacing: 1px;
+            background: #f8f9fa;
+            padding: 8px;
+            border-radius: 4px;
         }
         
         .card-details {
@@ -263,7 +267,7 @@
         
         .status {
             display: inline-block;
-            padding: 3px 8px;
+            padding: 5px 10px;
             border-radius: 4px;
             font-size: 12px;
             font-weight: bold;
@@ -380,21 +384,22 @@
         .server-response {
             background: #f8f9fa;
             border: 1px solid #e9ecef;
-            border-radius: 4px;
-            padding: 10px;
+            border-radius: 6px;
+            padding: 12px;
             margin-top: 10px;
-            font-family: monospace;
-            font-size: 12px;
+            font-family: 'Courier New', monospace;
+            font-size: 13px;
             white-space: pre-wrap;
-            max-height: 150px;
+            max-height: 200px;
             overflow-y: auto;
+            border-left: 3px solid var(--primary);
         }
         
         .copy-btn {
             width: auto;
-            padding: 5px 10px;
-            font-size: 12px;
-            margin-top: 5px;
+            padding: 8px 15px;
+            font-size: 14px;
+            margin-top: 8px;
             background: #6c757d;
         }
         
@@ -409,7 +414,7 @@
         }
         
         .tab {
-            padding: 10px 20px;
+            padding: 12px 20px;
             cursor: pointer;
             border-bottom: 3px solid transparent;
             transition: all 0.3s;
@@ -455,13 +460,69 @@
         .info-label {
             font-weight: bold;
         }
+        
+        .card-input-group {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 10px;
+        }
+        
+        .response-success {
+            color: var(--success);
+            font-weight: bold;
+            margin: 10px 0;
+        }
+        
+        .response-error {
+            color: var(--danger);
+            font-weight: bold;
+            margin: 10px 0;
+        }
+        
+        .payment-process {
+            background: #f8f9fa;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 15px 0;
+        }
+        
+        .process-step {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+            padding: 8px;
+            border-radius: 4px;
+            background: white;
+        }
+        
+        .step-icon {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background: #e9ecef;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-left: 10px;
+            font-size: 12px;
+        }
+        
+        .step-active {
+            background: var(--primary);
+            color: white;
+        }
+        
+        .step-completed {
+            background: var(--success);
+            color: white;
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <header>
-            <h1>🛡️ مولد وفحص بطاقات فيزا</h1>
-            <p>أداة متقدمة لتوليد وفحص بطاقات فيزا عشوائية مع عرض رد السيرفر</p>
+            <h1>🛡️ محاكاة عملية الدفع مع رد السيرفر</h1>
+            <p>أداة متقدمة لمحاكاة عملية الدفع عبر Stripe مع عرض رد السيرفر الكامل</p>
         </header>
         
         <div class="main-content">
@@ -488,8 +549,13 @@
                     
                     <div id="manual-mode" class="mode-options hidden">
                         <div class="form-group">
-                            <label for="card-input">بيانات البطاقة (n|mm|yy|cvc):</label>
-                            <input type="text" id="card-input" placeholder="1234567890123456|12|25|123">
+                            <label for="card-input">بيانات البطاقة:</label>
+                            <div class="card-input-group">
+                                <input type="text" id="card-number" placeholder="رقم البطاقة" maxlength="16">
+                                <input type="text" id="card-month" placeholder="الشهر" maxlength="2">
+                                <input type="text" id="card-year" placeholder="السنة" maxlength="2">
+                                <input type="text" id="card-cvc" placeholder="CVV" maxlength="3">
+                            </div>
                         </div>
                         <button id="check-manual" class="success">
                             <span class="loading hidden"></span>
@@ -567,6 +633,7 @@
                 <div class="tabs">
                     <div class="tab active" data-tab="results">📋 النتائج</div>
                     <div class="tab" data-tab="approved">✅ الناجحة</div>
+                    <div class="tab" data-tab="process">⚙️ عملية الدفع</div>
                 </div>
                 
                 <div id="results-tab" class="tab-content active">
@@ -587,6 +654,34 @@
                             <div class="card-item">
                                 <p>لا توجد بطاقات ناجحة حتى الآن.</p>
                             </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div id="process-tab" class="tab-content">
+                    <div class="card">
+                        <h2>⚙️ محاكاة عملية الدفع</h2>
+                        <div class="payment-process">
+                            <div class="process-step">
+                                <div class="step-icon step-completed">1</div>
+                                <span>جلب بيانات الموقع والمفاتيح</span>
+                            </div>
+                            <div class="process-step">
+                                <div class="step-icon step-active">2</div>
+                                <span>إنشاء طريقة الدفع (Payment Method)</span>
+                            </div>
+                            <div class="process-step">
+                                <div class="step-icon">3</div>
+                                <span>معالجة الدفع عبر Stripe</span>
+                            </div>
+                            <div class="process-step">
+                                <div class="step-icon">4</div>
+                                <span>تأكيد العملية وعرض النتيجة</span>
+                            </div>
+                        </div>
+                        
+                        <div id="process-details">
+                            <p>سيتم عرض تفاصيل عملية الدفع هنا عند بدء الفحص.</p>
                         </div>
                     </div>
                 </div>
@@ -627,7 +722,10 @@
             mode: document.getElementById('mode'),
             modeOptions: document.querySelectorAll('.mode-options'),
             generateSingle: document.getElementById('generate-single'),
-            cardInput: document.getElementById('card-input'),
+            cardNumber: document.getElementById('card-number'),
+            cardMonth: document.getElementById('card-month'),
+            cardYear: document.getElementById('card-year'),
+            cardCvc: document.getElementById('card-cvc'),
             checkManual: document.getElementById('check-manual'),
             startContinuous: document.getElementById('start-continuous'),
             stopContinuous: document.getElementById('stop-continuous'),
@@ -650,73 +748,8 @@
             tabContents: document.querySelectorAll('.tab-content'),
             floatingTotal: document.getElementById('floating-total'),
             floatingSuccess: document.getElementById('floating-success'),
-            floatingRate: document.getElementById('floating-rate')
-        };
-
-        // استدعاءات API - محاكاة لأننا لا نستطيع الوصول إلى Stripe مباشرة من المتصفح
-        const api = {
-            async fetchSiteData() {
-                // محاكاة لجلب بيانات الموقع
-                return {
-                    pk_live: 'pk_live_mock_' + Math.random().toString(36).substring(2),
-                    acct: 'acct_mock_' + Math.random().toString(36).substring(2),
-                    givewp: 'form_' + Math.random().toString(36).substring(2),
-                    givewp2: 'prefix_' + Math.random().toString(36).substring(2),
-                    givewp3: 'hash_' + Math.random().toString(36).substring(2)
-                };
-            },
-            
-            async processPayment(cardData, siteData) {
-                // محاكاة لعملية الدفع
-                await new Promise(resolve => setTimeout(resolve, 2000)); // محاكاة وقت الانتظار
-                
-                // محاكاة النتائج العشوائية
-                const random = Math.random();
-                if (random > 0.7) {
-                    // نجاح الدفع مع رد مفصل من السيرفر
-                    return {
-                        success: true,
-                        message: '✅ CHARGE 1.00$ - SUCCESS',
-                        serverResponse: JSON.stringify({
-                            id: 'ch_' + Math.random().toString(36).substring(2, 15),
-                            object: 'charge',
-                            amount: 100,
-                            amount_captured: 100,
-                            balance_transaction: 'txn_' + Math.random().toString(36).substring(2, 15),
-                            captured: true,
-                            created: Math.floor(Date.now() / 1000),
-                            currency: 'usd',
-                            paid: true,
-                            status: 'succeeded',
-                            receipt_url: 'https://pay.stripe.com/receipts/payment/' + Math.random().toString(36).substring(2, 15)
-                        }, null, 2)
-                    };
-                } else if (random > 0.4) {
-                    return {
-                        success: false,
-                        message: '❌ DECLINED: Insufficient funds',
-                        serverResponse: JSON.stringify({
-                            error: {
-                                type: 'card_error',
-                                code: 'card_declined',
-                                decline_code: 'insufficient_funds',
-                                message: 'Your card has insufficient funds.'
-                            }
-                        }, null, 2)
-                    };
-                } else {
-                    return {
-                        success: false,
-                        message: '❌ DECLINED: Invalid card',
-                        serverResponse: JSON.stringify({
-                            error: {
-                                type: 'invalid_request_error',
-                                message: 'Invalid card number'
-                            }
-                        }, null, 2)
-                    };
-                }
-            }
+            floatingRate: document.getElementById('floating-rate'),
+            processDetails: document.getElementById('process-details')
         };
 
         // توليد بطاقة فيزا عشوائية
@@ -763,14 +796,80 @@
 
         // توليد اسم عشوائي
         function generateRandomName() {
-            const firstNames = ['mahmod', 'ahmd', 'ale', 'ewsef', 'mahmod', 'kaled', 'garty', 'amer', 'basam', 'hasn'];
-            const lastNames = ['ale', 'gahu', 'kgso', 'hald', 'hdui', 'gshop', 'ewsf', 'amer', 'vaker', 'kaery'];
+            const firstNames = ['محمد', 'أحمد', 'علي', 'يوسف', 'محمود', 'خالد', 'جمال', 'عامر', 'بسام', 'حسن'];
+            const lastNames = ['علي', 'جابر', 'قاسم', 'حامد', 'هدى', 'جمال', 'يوسف', 'عامر', 'بكر', 'قادر'];
             return firstNames[Math.floor(Math.random() * firstNames.length)] + ' ' + lastNames[Math.floor(Math.random() * lastNames.length)];
         }
 
         // توليد بريد إلكتروني عشوائي
         function generateRandomEmail() {
             return 'user' + Math.floor(Math.random() * 10000) + '@gmail.com';
+        }
+
+        // محاكاة عملية الدفع كما في كود Python
+        async function simulatePayment(cardData) {
+            // محاكاة جلب بيانات الموقع
+            const siteData = {
+                pk_live: 'pk_live_' + Math.random().toString(36).substring(2, 15),
+                acct: 'acct_' + Math.random().toString(36).substring(2, 15),
+                givewp: 'form_' + Math.random().toString(36).substring(2, 10),
+                givewp2: 'prefix_' + Math.random().toString(36).substring(2, 10),
+                givewp3: 'hash_' + Math.random().toString(36).substring(2, 10)
+            };
+            
+            // محاكاة إنشاء طريقة الدفع
+            const paymentMethodId = 'pm_' + Math.random().toString(36).substring(2, 15);
+            
+            // محاكاة نتيجة الدفع
+            await new Promise(resolve => setTimeout(resolve, 2000));
+            
+            const random = Math.random();
+            if (random > 0.7) {
+                // نجاح الدفع
+                return {
+                    success: true,
+                    message: '✅ CHARGE 1.00$ - SUCCESS',
+                    serverResponse: JSON.stringify({
+                        "id": "ch_" + Math.random().toString(36).substring(2, 15),
+                        "object": "charge",
+                        "amount": 100,
+                        "amount_captured": 100,
+                        "balance_transaction": "txn_" + Math.random().toString(36).substring(2, 15),
+                        "captured": true,
+                        "created": Math.floor(Date.now() / 1000),
+                        "currency": "usd",
+                        "paid": true,
+                        "status": "succeeded",
+                        "receipt_url": "https://pay.stripe.com/receipts/payment/" + Math.random().toString(36).substring(2, 15)
+                    }, null, 2)
+                };
+            } else if (random > 0.4) {
+                // فشل الدفع - رصيد غير كاف
+                return {
+                    success: false,
+                    message: '❌ DECLINED: Insufficient funds',
+                    serverResponse: JSON.stringify({
+                        "error": {
+                            "type": "card_error",
+                            "code": "card_declined",
+                            "decline_code": "insufficient_funds",
+                            "message": "Your card has insufficient funds."
+                        }
+                    }, null, 2)
+                };
+            } else {
+                // فشل الدفع - بطاقة غير صالحة
+                return {
+                    success: false,
+                    message: '❌ DECLINED: Invalid card',
+                    serverResponse: JSON.stringify({
+                        "error": {
+                            "type": "invalid_request_error",
+                            "message": "Invalid card number"
+                        }
+                    }, null, 2)
+                };
+            }
         }
 
         // فحص بطاقة واحدة
@@ -783,8 +882,10 @@
             loadingElement.classList.remove('hidden');
             
             try {
-                const siteData = await api.fetchSiteData();
-                const result = await api.processPayment(cardData, siteData);
+                // تحديث عملية الدفع في التبويب
+                updatePaymentProcess('جاري معالجة البطاقة...');
+                
+                const result = await simulatePayment(cardData);
                 
                 updateResultCard(resultId, cardData, result.message, result.success ? 'success' : 'error', result.serverResponse);
                 
@@ -792,6 +893,12 @@
                     addApprovedCard(cardData, result.message, result.serverResponse);
                     state.totalSuccess++;
                     showNotification('✅ تمت إضافة بطاقة ناجحة!', 'success');
+                    
+                    // تحديث عملية الدفع بنجاح
+                    updatePaymentProcess('تمت عملية الدفع بنجاح!', true);
+                } else {
+                    // تحديث عملية الدفع بالفشل
+                    updatePaymentProcess('فشلت عملية الدفع: ' + result.message, false);
                 }
                 
                 state.totalChecked++;
@@ -802,11 +909,51 @@
                 updateResultCard(resultId, cardData, '❌ ERROR: ' + error.message, 'error');
                 state.totalChecked++;
                 updateStats();
+                
+                // تحديث عملية الدفع بالخطأ
+                updatePaymentProcess('حدث خطأ أثناء المعالجة: ' + error.message, false);
+                
                 return {success: false, message: 'error'};
             } finally {
                 // إخفاء مؤشر التحميل
                 loadingElement.classList.add('hidden');
             }
+        }
+
+        // تحديث عملية الدفع في التبويب
+        function updatePaymentProcess(message, isSuccess = null) {
+            let statusHtml = '';
+            
+            if (isSuccess === true) {
+                statusHtml = `<div class="response-success">${message}</div>`;
+            } else if (isSuccess === false) {
+                statusHtml = `<div class="response-error">${message}</div>`;
+            } else {
+                statusHtml = `<p>${message}</p>`;
+            }
+            
+            elements.processDetails.innerHTML = `
+                <h3>حالة العملية:</h3>
+                ${statusHtml}
+                <div class="server-response" style="margin-top: 15px;">
+                    ${message.includes('نجاح') ? 
+                        JSON.stringify({
+                            "id": "ch_" + Math.random().toString(36).substring(2, 15),
+                            "object": "charge",
+                            "amount": 100,
+                            "amount_captured": 100,
+                            "balance_transaction": "txn_" + Math.random().toString(36).substring(2, 15),
+                            "captured": true,
+                            "created": Math.floor(Date.now() / 1000),
+                            "currency": "usd",
+                            "paid": true,
+                            "status": "succeeded",
+                            "receipt_url": "https://pay.stripe.com/receipts/payment/" + Math.random().toString(36).substring(2, 15)
+                        }, null, 2) : 
+                        'سيتم عرض رد السيرفر هنا عند اكتمال العملية'
+                    }
+                </div>
+            `;
         }
 
         // إضافة بطاقة نتيجة
@@ -971,14 +1118,24 @@
 
         // فحص بطاقة يدوية
         elements.checkManual.addEventListener('click', async function() {
-            const card = elements.cardInput.value.trim();
-            if (!card) {
-                showNotification('❌ الرجاء إدخال بيانات البطاقة', 'error');
+            const number = elements.cardNumber.value.trim();
+            const month = elements.cardMonth.value.trim();
+            const year = elements.cardYear.value.trim();
+            const cvc = elements.cardCvc.value.trim();
+            
+            if (!number || !month || !year || !cvc) {
+                showNotification('❌ الرجاء إدخال جميع بيانات البطاقة', 'error');
                 return;
             }
             
+            const card = `${number}|${month}|${year}|${cvc}`;
             await checkSingleCard(card, true);
-            elements.cardInput.value = '';
+            
+            // مسح الحقول بعد الفحص
+            elements.cardNumber.value = '';
+            elements.cardMonth.value = '';
+            elements.cardYear.value = '';
+            elements.cardCvc.value = '';
         });
 
         // بدء التوليد المستمر
@@ -1087,6 +1244,10 @@
                 <div class="card-item">
                     <p>لا توجد بطاقات ناجحة حتى الآن.</p>
                 </div>
+            `;
+            
+            elements.processDetails.innerHTML = `
+                <p>سيتم عرض تفاصيل عملية الدفع هنا عند بدء الفحص.</p>
             `;
             
             updateStats();
