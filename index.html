@@ -823,24 +823,53 @@
             // محاكاة نتيجة الدفع
             await new Promise(resolve => setTimeout(resolve, 2000));
             
-            // دائماً نجاح الدفع مع الرد المطلوب
-            return {
-                success: true,
-                message: '✅ CHARGE 1.00$ - SUCCESS',
-                serverResponse: JSON.stringify({
-                    "id": "ch_" + Math.random().toString(36).substring(2, 15),
-                    "object": "charge",
-                    "amount": 100,
-                    "amount_captured": 100,
-                    "balance_transaction": "txn_" + Math.random().toString(36).substring(2, 15),
-                    "captured": true,
-                    "created": Math.floor(Date.now() / 1000),
-                    "currency": "usd",
-                    "paid": true,
-                    "status": "succeeded",
-                    "receipt_url": "https://pay.stripe.com/receipts/payment/" + Math.random().toString(36).substring(2, 15)
-                }, null, 2)
-            };
+            const random = Math.random();
+            if (random > 0.7) {
+                // نجاح الدفع
+                return {
+                    success: true,
+                    message: '✅ CHARGE 1.00$ - SUCCESS',
+                    serverResponse: JSON.stringify({
+                        "id": "ch_" + Math.random().toString(36).substring(2, 15),
+                        "object": "charge",
+                        "amount": 100,
+                        "amount_captured": 100,
+                        "balance_transaction": "txn_" + Math.random().toString(36).substring(2, 15),
+                        "captured": true,
+                        "created": Math.floor(Date.now() / 1000),
+                        "currency": "usd",
+                        "paid": true,
+                        "status": "succeeded",
+                        "receipt_url": "https://pay.stripe.com/receipts/payment/" + Math.random().toString(36).substring(2, 15)
+                    }, null, 2)
+                };
+            } else if (random > 0.4) {
+                // فشل الدفع - رصيد غير كاف
+                return {
+                    success: false,
+                    message: '❌ DECLINED: Insufficient funds',
+                    serverResponse: JSON.stringify({
+                        "error": {
+                            "type": "card_error",
+                            "code": "card_declined",
+                            "decline_code": "insufficient_funds",
+                            "message": "Your card has insufficient funds."
+                        }
+                    }, null, 2)
+                };
+            } else {
+                // فشل الدفع - بطاقة غير صالحة
+                return {
+                    success: false,
+                    message: '❌ DECLINED: Invalid card',
+                    serverResponse: JSON.stringify({
+                        "error": {
+                            "type": "invalid_request_error",
+                            "message": "Invalid card number"
+                        }
+                    }, null, 2)
+                };
+            }
         }
 
         // فحص بطاقة واحدة
@@ -907,19 +936,22 @@
                 <h3>حالة العملية:</h3>
                 ${statusHtml}
                 <div class="server-response" style="margin-top: 15px;">
-                    ${JSON.stringify({
-                        "id": "ch_" + Math.random().toString(36).substring(2, 15),
-                        "object": "charge",
-                        "amount": 100,
-                        "amount_captured": 100,
-                        "balance_transaction": "txn_" + Math.random().toString(36).substring(2, 15),
-                        "captured": true,
-                        "created": Math.floor(Date.now() / 1000),
-                        "currency": "usd",
-                        "paid": true,
-                        "status": "succeeded",
-                        "receipt_url": "https://pay.stripe.com/receipts/payment/" + Math.random().toString(36).substring(2, 15)
-                    }, null, 2)}
+                    ${message.includes('نجاح') ? 
+                        JSON.stringify({
+                            "id": "ch_" + Math.random().toString(36).substring(2, 15),
+                            "object": "charge",
+                            "amount": 100,
+                            "amount_captured": 100,
+                            "balance_transaction": "txn_" + Math.random().toString(36).substring(2, 15),
+                            "captured": true,
+                            "created": Math.floor(Date.now() / 1000),
+                            "currency": "usd",
+                            "paid": true,
+                            "status": "succeeded",
+                            "receipt_url": "https://pay.stripe.com/receipts/payment/" + Math.random().toString(36).substring(2, 15)
+                        }, null, 2) : 
+                        'سيتم عرض رد السيرفر هنا عند اكتمال العملية'
+                    }
                 </div>
             `;
         }
