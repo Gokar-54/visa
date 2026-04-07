@@ -117,10 +117,9 @@ footer {
 let videos = JSON.parse(localStorage.getItem("videos")) || [];
 let isAdmin = false;
 
-// غير كلمة السر
 const ADMIN_PASSWORD = "1234";
 
-// 🔥 حط معلوماتك هون
+// 🔥 معلومات Cloudinary
 const CLOUD_NAME = "draw9j40o";
 const UPLOAD_PRESET = "my_videos";
 
@@ -139,7 +138,7 @@ function loginAdmin() {
   }
 }
 
-// ✅ رفع احترافي
+// ✅ رفع الفيديو (نسخة ثابتة)
 async function uploadVideo() {
   const title = document.getElementById("title").value;
   const file = document.getElementById("videoFile").files[0];
@@ -149,6 +148,7 @@ async function uploadVideo() {
   let formData = new FormData();
   formData.append("file", file);
   formData.append("upload_preset", UPLOAD_PRESET);
+  formData.append("resource_type", "video");
 
   try {
     let res = await fetch(`https://api.cloudinary.com/v1_1/${CLOUD_NAME}/video/upload`, {
@@ -157,24 +157,28 @@ async function uploadVideo() {
     });
 
     let data = await res.json();
+    console.log(data);
 
     if (data.secure_url) {
       videos.push({
-        title,
+        title: title || "بدون عنوان",
         url: data.secure_url,
         likes: 0
       });
 
       save();
       renderVideos();
+
+      document.getElementById("title").value = "";
+      document.getElementById("videoFile").value = "";
+
       alert("تم رفع الفيديو بنجاح 🔥");
     } else {
-      alert("صار خطأ بالرفع");
-      console.log(data);
+      alert("فشل الرفع ❌");
     }
 
   } catch (err) {
-    alert("فشل الاتصال");
+    alert("خطأ بالاتصال ❌");
     console.log(err);
   }
 }
