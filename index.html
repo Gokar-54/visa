@@ -1,181 +1,522 @@
 <!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <title>Telegram Web</title>
-    <meta name="description" content="Telegram is a cloud-based mobile and desktop messaging app with a focus on security and speed.">
-    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,shrink-to-fit=no,viewport-fit=cover"> 
-    <meta name="mobile-web-app-capable" content="yes">
-    <meta name="mobile-web-app-title" content="Telegram Web">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-title" content="Telegram Web">
-    <meta name="application-name" content="Telegram Web">
-    <meta name="msapplication-TileColor" content="#2d89ef">
-    <meta name="msapplication-TileImage" content="assets/img/mstile-144x144.png?v=jw3mK7G9Ry">
-    <meta name="msapplication-config" content="browserconfig.xml?v=jw3mK7G9Ry">
-    <meta name="theme-color" content="#ffffff">
-    <meta name="color-scheme" content="light">
-    <meta name="google" content="notranslate">
-    <!-- <meta name="robots" content="noindex"> -->
+<html lang="ar" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>ChickFarmers - طلب سحب تلقائي</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            font-family: system-ui, 'Segoe UI', 'Cairo', 'Tahoma', sans-serif;
+        }
 
-    <!-- Open Graph / Facebook -->
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://web.telegram.org/k/">
-    <meta property="og:title" content="Telegram Web">
-    <meta property="og:description" content="Telegram is a cloud-based mobile and desktop messaging app with a focus on security and speed.">
-    <meta property="og:image" content="assets/img/android-chrome-192x192.png?v=jw3mK7G9Ry">
+        body {
+            background: linear-gradient(145deg, #0a0f1e 0%, #0c1222 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 1.5rem;
+            margin: 0;
+        }
 
-    <!-- Twitter -->
-    <meta property="twitter:card" content="summary_large_image">
-    <meta property="twitter:url" content="https://web.telegram.org/k/">
-    <meta property="twitter:title" content="Telegram Web">
-    <meta property="twitter:description" content="Telegram is a cloud-based mobile and desktop messaging app with a focus on security and speed.">
-    <meta property="twitter:image" content="assets/img/android-chrome-192x192.png?v=jw3mK7G9Ry">
+        .glass-card {
+            background: rgba(18, 25, 45, 0.85);
+            backdrop-filter: blur(12px);
+            border-radius: 2rem;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: 0 25px 45px -12px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(255, 255, 255, 0.02);
+            width: 100%;
+            max-width: 700px;
+            padding: 1.8rem;
+            transition: all 0.2s ease;
+        }
 
-    <link rel="apple-touch-icon" sizes="180x180" href="assets/img/apple-touch-icon.png?v=jw3mK7G9Ry">
-    <link rel="icon" type="image/png" sizes="16x16" href="assets/img/favicon-16x16.png?v=jw3mK7G9Ry">
-    <link rel="icon" type="image/png" sizes="32x32" href="assets/img/favicon-32x32.png?v=jw3mK7G9Ry">
-    <link rel="icon" type="image/png" sizes="192x192" href="assets/img/android-chrome-192x192.png?v=jw3mK7G9Ry">
-    <link rel="alternate icon" href="assets/img/favicon.ico?v=jw3mK7G9Ry" type="image/x-icon">
-    <!-- <link rel="mask-icon" href="assets/img/logo_filled.svg?v=jw3mK7G9Ry" color="#3390ec"> -->
-    <link rel="canonical" href="https://web.telegram.org/">
+        h1 {
+            font-size: 1.8rem;
+            font-weight: 600;
+            margin: 0 0 0.3rem 0;
+            background: linear-gradient(135deg, #f5e6b0, #e0b84d);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            letter-spacing: -0.2px;
+        }
 
-    <link rel="manifest" id="manifest">
-    <script type="module" crossorigin src="./index-DNp74U6Y.js"></script>
-    <link rel="stylesheet" crossorigin href="./index-q1C_GO8L.css">
-  </head>
-  <body class="animation-level-2 has-auth-pages">
-    <!--[if IE]>
-      <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience and security.</p>
-    <![endif]-->
-    <svg style="position: absolute; top: -10000px; left: -10000px;">
-      <defs id="svg-defs">
-        <clipPath id="tooltip-notch-clip">
-          <path d="M19 7C16.8992 7 13.59 3.88897 11.5003 1.67424C10.7648 0.894688 10.397 0.50491 10.0434 0.385149C9.70568 0.270811 9.4225 0.270474 9.08456 0.38401C8.73059 0.50293 8.36133 0.892443 7.62279 1.67147C5.52303 3.88637 2.18302 7 0 7L19 7Z" />
-        </clipPath>
-        <clipPath id="message-tail-clip">
-          <use href="#message-tail" />
-        </clipPath>
-        <clipPath id="story-item-clip" clipPathUnits="objectBoundingBox">
-          <path d="M0.5 0C0.776148 0 1 0.223852 1 0.5 1 0.776148 0.776148 1 0.5 1 0.419148 1 0.342778 0.980778 0.275185 0.946704 0.407333 0.84263 0.492185 0.681222 0.492185 0.5 0.492185 0.318741 0.407333 0.157333 0.275185 0.053259 0.342778 0.019185 0.419148 0 0.5 0Z" />
-        </clipPath>
-        <!-- <linearGradient id="topic-icon-gradient" x1="0" x2="0" y1="0" y2="1">
-          <stop class="topic-icon-gradient-stop-1" offset="0%" />
-          <stop class="topic-icon-gradient-stop-2" offset="100%" />
-        </linearGradient> -->
-        <path id="message-tail" d="M1.00002881,1.03679295e-14 L7,0 L7,17 C6.8069969,14.1607017 6.12380234,11.2332513 4.95041634,8.21764872 C4.04604748,5.89342034 2.50413132,3.73337411 0.324667862,1.73751004 L0.324652538,1.73752677 C-0.0826597201,1.36452676 -0.110475289,0.731958677 0.262524727,0.324646419 C0.451952959,0.117792698 0.719544377,1.0985861e-14 1.00002881,1.04360964e-14 Z" />
-        <path id="logo" fill-rule="evenodd" d="M80,0 C124.18278,0 160,35.81722 160,80 C160,124.18278 124.18278,160 80,160 C35.81722,160 0,124.18278 0,80 C0,35.81722 35.81722,0 80,0 Z M114.262551,46.4516129 L114.123923,46.4516129 C111.089589,46.5056249 106.482806,48.0771432 85.1289541,56.93769 L81.4133571,58.4849956 C72.8664779,62.0684477 57.2607933,68.7965125 34.5963033,78.66919 C30.6591745,80.2345564 28.5967328,81.765936 28.4089783,83.2633288 C28.0626453,86.0254269 31.8703852,86.959903 36.7890378,88.5302703 L38.2642674,89.0045258 C42.3926354,90.314406 47.5534685,91.7248852 50.3250916,91.7847532 C52.9151948,91.8407003 55.7944784,90.8162976 58.9629426,88.7115451 L70.5121776,80.9327422 C85.6657026,70.7535853 93.6285785,65.5352892 94.4008055,65.277854 L94.6777873,65.216416 C95.1594319,65.1213105 95.7366278,65.0717596 96.1481181,65.4374337 C96.6344248,65.8695939 96.5866185,66.6880224 96.5351057,66.9075859 C96.127514,68.6448691 75.2839361,87.6143392 73.6629144,89.2417998 L73.312196,89.6016896 C68.7645143,94.2254793 63.9030972,97.1721503 71.5637945,102.355193 L73.3593638,103.544598 C79.0660342,107.334968 82.9483395,110.083813 88.8107882,113.958377 L90.3875424,114.996094 C95.0654739,118.061953 98.7330313,121.697601 103.562866,121.253237 C105.740839,121.052855 107.989107,119.042224 109.175465,113.09692 L109.246762,112.727987 C112.002037,98.0012935 117.417883,66.09303 118.669527,52.9443975 C118.779187,51.7924073 118.641237,50.318088 118.530455,49.6708963 L118.474159,49.3781963 C118.341081,48.7651315 118.067967,48.0040758 117.346762,47.4189793 C116.412565,46.6610871 115.002114,46.4638844 114.262551,46.4516129 Z"/>
-        <path id="poll-line" d="M4.47,5.33v13.6c0,4.97,4.03,9,9,9h458.16"/>
-        <path id="check" fill="none" d="M 4.7071 12.2929 l 5 5 c 0.3905 0.3905 1.0237 0.3905 1.4142 0 l 11 -11" />
-        <path id="verified-icon-background" fill-rule="evenodd" clip-rule="evenodd" d="m14.378741 1.509638 1.818245 1.818557c.365651.365716.861601.571194 1.378741.571259l2.574273.000312c1.01361.000117 1.846494.773578 1.940861 1.762436l.008905.187798-.000312 2.5727c-.000065.517322.205439 1.013454.571259 1.379222l1.819649 1.819337c.714441.713427.759174 1.843179.134563 2.609139l-.134797.148109-1.819181 1.8182502c-.365963.3657823-.571558.8620196-.571493 1.3794456l.000312 2.5737972c.000559 1.0136048-.772668 1.846676-1.7615 1.9412861l-.188266.0084786-2.573792-.0003107c-.517426-.0000624-1.013675.2055248-1.379456.5714956l-1.818245 1.8191823c-.71331.7145515-1.843049.7594886-2.609113.1349998l-.148135-.1347645-1.8193435-1.8196542c-.3657628-.3658252-.8618987-.5713214-1.3792103-.571259l-2.5727052.0003107c-1.0136048.0001222-1.846676-.7731321-1.9412861-1.761968l-.0089492-.1877967-.0003107-2.5742678c-.0000624-.5171478-.2055495-1.0130926-.571259-1.3787397l-1.8185622-1.8182515c-.7139886-.713869-.758706-1.843647-.1340846-2.609607l.1338493-.148109 1.8190328-1.81935c.3655665-.365625.5709613-.861471.5710237-1.378494l.0003107-2.573181c.0006006-1.076777.8734635-1.949636 1.9502353-1.950234l2.5731758-.000312c.5170321-.000065 1.0128768-.205452 1.3785044-.571025l1.8193448-1.819038c.761592-.761449 1.996254-.761345 2.757716.000247zm3.195309 8.047806c-.426556-.34125-1.032655-.306293-1.417455.060333l-.099151.108173-4.448444 5.55815-1.7460313-1.74707-.1104961-.096564c-.4229264-.32188-1.0291801-.289692-1.4154413.096564-.3862612.386269-.4184492.992511-.0965653 1.41544l.0965653.1105 2.5999987 2.5999987.109876.0961467c.419874.320359 1.015131.2873897 1.397071-.0773773l.098579-.107692 5.2-6.4999961.083772-.120484c.273208-.455884.174278-1.054885-.252278-1.396122z" />
-        <path id="verified-icon-check" d="M8 8H18V18H8V8Z" />
-        <path id="topic-icon" d="M21.3733 4.27035C19.2176 2.25323 16.2016 1 12.8636 1C6.31153 1 1 5.82866 1 11.7851C1 15.1823 2.58685 17.9669 5.28707 19.9438C5.63238 20.1966 5.95042 21.6013 5.18073 22.7812C4.86598 23.2637 4.51948 23.639 4.25272 23.928C3.86715 24.3457 3.6482 24.5828 3.93266 24.7022C4.22935 24.8266 5.98245 24.8882 7.24776 24.1786C8.23812 23.6232 8.83793 23.0691 9.24187 22.696C9.57588 22.3875 9.77595 22.2027 9.95217 22.2431C10.584 22.388 11.236 22.4868 11.9035 22.5354C11.9126 22.5361 11.9218 22.5368 11.9309 22.5374C12.2386 22.5592 12.5497 22.5702 12.8636 22.5702C19.4157 22.5702 24.7273 17.7416 24.7273 11.7851C24.7273 8.86318 23.4491 6.21263 21.3733 4.27035Z" />
-        <!-- <path id="verified-icon-background" d="M12.3 2.9c.1.1.2.1.3.2.7.6 1.3 1.1 2 1.7.3.2.6.4.9.4.9.1 1.7.2 2.6.2.5 0 .6.1.7.7.1.9.1 1.8.2 2.6 0 .4.2.7.4 1 .6.7 1.1 1.3 1.7 2 .3.4.3.5 0 .8-.5.6-1.1 1.3-1.6 1.9-.3.3-.5.7-.5 1.2-.1.8-.2 1.7-.2 2.5 0 .4-.2.5-.6.6-.8 0-1.6.1-2.5.2-.5 0-1 .2-1.4.5-.6.5-1.3 1.1-1.9 1.6-.3.3-.5.3-.8 0-.7-.6-1.4-1.2-2-1.8-.3-.2-.6-.4-.9-.4-.9-.1-1.8-.2-2.7-.2-.4 0-.5-.2-.6-.5 0-.9-.1-1.7-.2-2.6 0-.4-.2-.8-.4-1.1-.6-.6-1.1-1.3-1.6-2-.4-.4-.3-.5 0-1 .6-.6 1.1-1.3 1.7-1.9.3-.3.4-.6.4-1 0-.8.1-1.6.2-2.5 0-.5.1-.6.6-.6.9-.1 1.7-.1 2.6-.2.4 0 .7-.2 1-.4.7-.6 1.4-1.2 2.1-1.7.1-.2.3-.3.5-.2z" /> -->
-        <!-- <path id="verified-icon-check" d="M16.4 10.1l-.2.2-5.4 5.4c-.1.1-.2.2-.4 0l-2.6-2.6c-.2-.2-.1-.3 0-.4.2-.2.5-.6.7-.6.3 0 .5.4.7.6l1.1 1.1c.2.2.3.2.5 0l4.3-4.3c.2-.2.4-.3.6 0 .1.2.3.3.4.5.2 0 .3.1.3.1z" /> -->
-        <symbol id="message-tail-filled" viewBox="0 0 11 20">
-          <g transform="translate(9 -14)" fill="inherit" fill-rule="evenodd">
-            <path d="M-6 16h6v17c-.193-2.84-.876-5.767-2.05-8.782-.904-2.325-2.446-4.485-4.625-6.48A1 1 0 01-6 16z" transform="matrix(1 0 0 -1 0 49)" id="corner-fill" fill="inherit"/>
-          </g>
-        </symbol>
-        <symbol id="star-sparkle" viewBox="0 0 7 7">
-          <path d="M3.49852 6.5C3.64328 6.5 3.75554 6.39655 3.77917 6.24581C4.04505 4.27438 4.31979 3.99655 6.23412 3.78374C6.38479 3.76601 6.5 3.64483 6.5 3.5C6.5 3.35222 6.38774 3.23399 6.23708 3.21626C4.3257 2.98867 4.06278 2.72266 3.77917 0.754187C3.75554 0.603448 3.64033 0.5 3.49852 0.5C3.35672 0.5 3.24151 0.603448 3.21787 0.754187C2.95199 2.72562 2.67725 3.00345 0.765879 3.21626C0.61226 3.23399 0.5 3.35222 0.5 3.5C0.5 3.64483 0.609306 3.76305 0.762925 3.78374C2.6743 4.04089 2.92541 4.27734 3.21787 6.24581C3.24446 6.39655 3.35968 6.5 3.49852 6.5Z" fill="currentColor"/>
-        </symbol>
-        <linearGradient id="paint0_linear_6651_5783" x1="12.1999" y1="-1.71024" x2="12.1999" y2="25.2914" gradientUnits="userSpaceOnUse">
-          <stop stop-color="#FFF0C2"/>
-          <stop offset="1" stop-color="#FFEBBA"/>
-        </linearGradient>
-        <linearGradient id="paint1_linear_6651_5783" x1="12.1992" y1="-1.70952" x2="20.922" y2="24.9546" gradientUnits="userSpaceOnUse">
-          <stop stop-color="#FFD147"/>
-          <stop offset="1" stop-color="#FFB526"/>
-        </linearGradient>
-        <linearGradient id="paint2_linear_6651_5783" x1="12.1856" y1="1.51874" x2="16.8655" y2="22.0231" gradientUnits="userSpaceOnUse">
-          <stop stop-color="#E58F0D"/>
-          <stop offset="1" stop-color="#EB7814"/>
-        </linearGradient>
-        <!-- <linearGradient id="g" x1="-300%" x2="-200%" y1="0" y2="0">
-          <stop offset="-10%" stop-opacity=".1"/>
-          <stop offset="30%" stop-opacity=".07"/>
-          <stop offset="70%" stop-opacity=".07"/>
-          <stop offset="110%" stop-opacity=".1"/>
-          <animate attributeName="x1" from="-300%" to="1200%" dur="3s" repeatCount="indefinite"/>
-          <animate attributeName="x2" from="-200%" to="1300%" dur="3s" repeatCount="indefinite"/>
-        </linearGradient> -->
-        <!-- <linearGradient id="stories-gradient" x1="91.56%" y1="-0.56%" x2="13.42%" y2="102.37%">
-          <stop offset="0%" stop-color="#34C76F"></stop>
-          <stop offset="100%" stop-color="#3DA1FD"></stop>
-        </linearGradient> -->
-      </defs>
-    </svg>
-    <div class="whole" id="auth-pages" style="display: none;">
-      <div id="auth-pages-close" style="display: none;"></div>
-      <div class="scrollable scrollable-y">
-        <div class="tabs-container auth-pages__container" data-animation="tabs">
-          <div class="tabs-tab page-signImport">
-            <div class="container center-align"></div>
-          </div>
-          <div class="tabs-tab page-sign">
-            <div class="container">
-              <div class="auth-image">
-                <svg class="sign-logo" xmlns="http://www.w3.org/2000/svg" width="160" height="160" viewBox="0 0 160 160">
-                  <use href="#logo" />
-                </svg>
-              </div>
-            </div>
-          </div>
-          <div class="tabs-tab page-signQR">
-            <div class="container center-align">
-              <div class="auth-image"></div>
-            </div>
-          </div>
-          <div class="tabs-tab page-authCode">
-            <div class="container center-align">
-              <div class="auth-image"></div>
-              <div class="phone-wrapper">
-                <h4 class="phone"></h4>
-                <span class="phone-edit"></span>
-              </div>
-              <p class="subtitle sent-type"></p>
-              <div class="input-wrapper"></div>
-            </div>
-          </div>
-          <div class="tabs-tab page-password"></div>
-          <div class="tabs-tab page-signUp"></div>
-          <div class="tabs-tab page-emailRecover"></div>
-        </div>
-      </div>
+        .sub {
+            color: #8e9bb5;
+            font-size: 0.85rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding-bottom: 1rem;
+            margin-bottom: 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            flex-wrap: wrap;
+        }
+
+        .badge {
+            background: #1e2a3e;
+            padding: 0.2rem 0.7rem;
+            border-radius: 2rem;
+            font-size: 0.7rem;
+            font-family: monospace;
+            color: #b9c7d9;
+        }
+
+        .input-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.4rem;
+            margin-bottom: 1.2rem;
+        }
+
+        label {
+            font-size: 0.8rem;
+            font-weight: 500;
+            color: #cbd5e6;
+            letter-spacing: 0.3px;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        label i {
+            font-weight: normal;
+            color: #e0b84d;
+        }
+
+        input, textarea {
+            background: #0f1422;
+            border: 1px solid #2a3450;
+            border-radius: 1rem;
+            padding: 0.7rem 1rem;
+            color: #f0f3fa;
+            font-size: 0.85rem;
+            font-family: 'Monaco', 'Menlo', monospace;
+            transition: 0.2s;
+            outline: none;
+        }
+
+        input:focus, textarea:focus {
+            border-color: #e0b84d;
+            box-shadow: 0 0 0 2px rgba(224, 184, 77, 0.2);
+        }
+
+        .row-2col {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .row-2col > div {
+            flex: 1;
+            min-width: 140px;
+        }
+
+        button {
+            background: linear-gradient(95deg, #2c3e4e, #1e2a3a);
+            border: none;
+            border-radius: 2rem;
+            padding: 0.7rem 1.6rem;
+            font-weight: 600;
+            font-size: 0.9rem;
+            color: #eef2ff;
+            cursor: pointer;
+            transition: 0.2s;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            margin-top: 0.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        button.primary {
+            background: linear-gradient(95deg, #e0b84d, #c79b2a);
+            color: #0a0f1e;
+            box-shadow: 0 4px 12px rgba(224, 184, 77, 0.3);
+        }
+
+        button.primary:hover {
+            transform: translateY(-2px);
+            filter: brightness(1.05);
+        }
+
+        button.danger {
+            background: #3b2a2f;
+            color: #ffb7b7;
+        }
+
+        button.danger:hover {
+            background: #5c3a42;
+        }
+
+        .log-area {
+            background: #070b14e0;
+            border-radius: 1.2rem;
+            padding: 1rem;
+            margin: 1.2rem 0 0.8rem;
+            border: 1px solid #2a3248;
+            max-height: 320px;
+            overflow-y: auto;
+            font-family: 'Monaco', 'Menlo', monospace;
+            font-size: 0.75rem;
+            direction: ltr;
+            text-align: left;
+        }
+
+        .log-line {
+            padding: 0.3rem 0.4rem;
+            border-bottom: 1px solid #1e2538;
+            color: #b9c3db;
+            word-break: break-word;
+            white-space: pre-wrap;
+            font-family: monospace;
+        }
+
+        .log-line.error {
+            color: #ffa098;
+            background: #3a1e1e30;
+            border-right: 3px solid #ff6b5b;
+        }
+
+        .log-line.success {
+            color: #c3e88d;
+            border-right: 3px solid #c3e88d;
+        }
+
+        .log-line.info {
+            color: #82aaff;
+        }
+
+        .status-badge {
+            display: inline-block;
+            background: #1f2a3e;
+            border-radius: 20px;
+            padding: 0.2rem 0.7rem;
+            font-size: 0.7rem;
+            font-weight: normal;
+        }
+
+        .footer-buttons {
+            display: flex;
+            gap: 0.8rem;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        hr {
+            border-color: #253041;
+            margin: 1rem 0;
+        }
+
+        .warning-note {
+            background: #1e1a2c;
+            border-radius: 1rem;
+            padding: 0.6rem 1rem;
+            font-size: 0.7rem;
+            color: #d9c88e;
+            margin-top: 1rem;
+            border: 1px solid #3e3650;
+        }
+
+        ::-webkit-scrollbar {
+            width: 5px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0e1322;
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #e0b84d;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="glass-card">
+    <h1>🐔 ChickFarmers Auto‑Withdrawal</h1>
+    <div class="sub">
+        <span>🔄 سحب تلقائي حتى تغيير الرد</span>
+        <span class="badge">api.php → create_withdrawal</span>
     </div>
-    <div class="sidebar-left-overlay"></div>
-    <div class="whole page-chats" style="display: none;" id="page-chats">
-      <div id="main-columns" class="tabs-container" data-animation="navigation">
-        <div class="folders-sidebar sidebar-left-common" id="folders-sidebar"></div>
-        <div class="sidebar-left-placeholder"></div>
-        <div class="tabs-tab chatlist-container sidebar sidebar-left main-column sidebar-left-common" id="column-left">
-          <div class="sidebar-slider tabs-container">
-            <div class="tabs-tab sidebar-slider-item item-main">
-              <div class="sidebar-header main-search-sidebar-header can-have-forum">
-                <div class="sidebar-header__btn-container">
-                  <div class="animated-menu-icon"></div>
-                  <div class="btn-icon sidebar-back-button"></div>
-                </div>
-              </div>
-              <div class="sidebar-content transition zoom-fade can-have-forum">
-                <div class="transition-item active" id="chatlist-container">
-                  <div class="folders-tabs-scrollable menu-horizontal-scrollable hide">
-                    <nav class="menu-horizontal-div" id="folders-tabs"></nav>
-                  </div>
-                  <div class="tabs-container" id="folders-container"></div>
-                </div>
-                <div class="transition-item sidebar-search" id="search-container"></div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="tabs-tab main-column" id="column-center"></div>
-        <div class="tabs-tab sidebar sidebar-right main-column" id="column-right">
-          <div class="sidebar-content sidebar-slider tabs-container"></div>
-        </div>
-      </div>
+
+    <!-- حقول البيانات الأساسية -->
+    <div class="input-group">
+        <label>🔑 <span>CF_Clearance (cookie)</span></label>
+        <input type="text" id="cf_clearance" value="EOOPfqdEzoUaXcld.RcCyB6IUZ.Fd36uGHe5OQ8ivUU-1775809835-1.2.1.1-c3gDlNYA8SXc52uGUDaSPFCQ.W99herUkhkAA.Qdxzh2t9LWv1nxCOB8nzBbGjaDhc5NLKhk9vfKN0x7TTlk5sU3WLffr5aYv5G.qHPaWVABMZDjc53OWC.UTii7.WXON8yoTH1NPPG0auPVsC_HDyZMif6JklwyrRG033vVQSOiGCplQheH5mCAQZ93IR.0QQXTtwvlMt4yv3TmvFuH.4HUbC0SH_v3tlHj7PRT8x.bQJJp5quvXX2dAlKMwMNoVcMX.k918kuFRlvV0a.8.x66TyRc1s01dZPXN4EDeV2GL6CCBL4oIR_EVrAo3IbH3hLz3YvsMwYKookfyva0hg" placeholder="cf_clearance value">
     </div>
-    <div id="stories-viewer"></div>
-  </body>
+    <div class="input-group">
+        <label>🍪 <span>PHPSESSID</span></label>
+        <input type="text" id="phpsessid" value="l5aintcv6b1kjtjuu4m2fa1r6m" placeholder="PHPSESSID">
+    </div>
+
+    <div class="row-2col">
+        <div class="input-group">
+            <label>💰 <span>مبلغ السحب (cff_amount)</span></label>
+            <input type="number" id="cff_amount" value="2052" step="1">
+        </div>
+        <div class="input-group">
+            <label>🏦 <span>محفظة (wallet_address)</span></label>
+            <input type="text" id="wallet_address" value="0xcc77f540130d76e21eaf1e60481af20a56ee24fc">
+        </div>
+    </div>
+
+    <div class="input-group">
+        <label>🌐 <span>User-Agent (اختياري)</span></label>
+        <input type="text" id="user_agent" value="Mozilla/5.0 (Linux; Android 10) AppleWebKit/537.36 Chrome/137.0.0.0 Mobile Safari/537.36">
+    </div>
+
+    <hr>
+
+    <div class="footer-buttons">
+        <button id="startBtn" class="primary">▶ بدء السحب التلقائي</button>
+        <button id="stopBtn" class="danger">⏹ إيقاف</button>
+        <button id="clearLogBtn">🗑 مسح السجل</button>
+    </div>
+
+    <!-- منطقة عرض السجلات (logs) -->
+    <div class="log-area" id="logArea">
+        <div class="log-line info">✨ جاهز. اضغط "بدء السحب التلقائي" لبدء مراقبة الطلبات.</div>
+        <div class="log-line info">⚠️ ملاحظة: السكريبت سيستمر في إرسال الطلبات حتى يتغير الرد (عدم احتوائه على "You already have a pending withdrawal").</div>
+    </div>
+
+    <div class="warning-note">
+        ⚠️ ملاحظة تقنية: الكود يحاول تعيين الكوكيز عبر <code>document.cookie</code>. لكي يعمل الطلب بشكل صحيح مع API الموقع، يجب تشغيل هذه الصفحة <strong>على نطاق chickfarmers.com</strong> (لأن الكوكيز مرتبطة بالدومين).<br>
+        ✅ إذا كنت تستخدم Vercel/GitHub Pages، قد تواجه CORS أو فشل في إرسال الكوكيز. الحل الأمثل: استخدام extension مثل "CORS Unblock" مؤقتًا، أو استخدام نطاق الموقع الأصلي. السكريبت مصمم بنفس منطق Python الأصلي.
+    </div>
+</div>
+
+<script>
+    (function() {
+        // ------------------- عناصر DOM -------------------
+        const startBtn = document.getElementById('startBtn');
+        const stopBtn = document.getElementById('stopBtn');
+        const clearLogBtn = document.getElementById('clearLogBtn');
+        const logArea = document.getElementById('logArea');
+
+        // حقول الإدخال
+        const cfClearanceInput = document.getElementById('cf_clearance');
+        const phpsessidInput = document.getElementById('phpsessid');
+        const cffAmountInput = document.getElementById('cff_amount');
+        const walletAddressInput = document.getElementById('wallet_address');
+        const userAgentInput = document.getElementById('user_agent');
+
+        // متغيرات التحكم في الحلقة
+        let isRunning = false;
+        let currentTimeout = null;
+
+        // دالة إضافة سجل (log)
+        function addLog(message, type = 'info') {
+            const logDiv = document.createElement('div');
+            logDiv.className = `log-line ${type}`;
+            const timestamp = new Date().toLocaleTimeString('ar-EG', { hour12: false });
+            logDiv.textContent = `[${timestamp}] ${message}`;
+            logArea.appendChild(logDiv);
+            // تمرير تلقائي للأسفل
+            logArea.scrollTop = logArea.scrollHeight;
+            // حد أقصى للعناصر تجنب التكدس (اختياري: حذف القديم إذا زاد عن 500)
+            if (logArea.children.length > 600) {
+                while (logArea.children.length > 500) {
+                    logArea.removeChild(logArea.firstChild);
+                }
+            }
+        }
+
+        // مسح السجل
+        function clearLog() {
+            while (logArea.firstChild) {
+                logArea.removeChild(logArea.firstChild);
+            }
+            addLog("🧹 تم مسح سجل الأحداث.", "info");
+        }
+
+        // دالة تعيين الكوكيز في المستعرض (لنطاق chickfarmers.com)
+        function setCookiesFromInputs() {
+            const cfVal = cfClearanceInput.value.trim();
+            const sessVal = phpsessidInput.value.trim();
+            if (!cfVal && !sessVal) {
+                addLog("⚠️ تحذير: لم يتم إدخال أي كوكيز، قد تفشل المصادقة.", "error");
+            }
+            // مسح الكوكيز القديمة بنفس المسار/الدومين (لنفس الدومين الحالي)
+            // نضبط كوكيز خاصة بالـ domain الحالي (هذا المتصفح سيُرسلها تلقائياً عند fetch مع credentials: 'include')
+            // لاحظ: لن تعمل إذا كان الدومين مختلف عن chickfarmers.com، لكننا نحاول.
+            if (cfVal) {
+                document.cookie = `cf_clearance=${cfVal}; path=/; max-age=3600; SameSite=Lax`;
+                addLog(`🍪 تم تعيين cf_clearance (طول: ${cfVal.length})`, "info");
+            }
+            if (sessVal) {
+                document.cookie = `PHPSESSID=${sessVal}; path=/; max-age=3600; SameSite=Lax`;
+                addLog(`🍪 تم تعيين PHPSESSID`, "info");
+            }
+        }
+
+        // بناء الهيدرز حسب رغبة المستخدم (مع إضافة مرجع وكيل المستخدم)
+        function buildHeaders() {
+            const userAgent = userAgentInput.value.trim() || "Mozilla/5.0 (Linux; Android 10) AppleWebKit/537.36 Chrome/137.0.0.0 Mobile Safari/537.36";
+            return {
+                'authority': 'chickfarmers.com',
+                'accept': '*/*',
+                'accept-language': 'en-US,en;q=0.9,ar;q=0.8',
+                'content-type': 'application/json',
+                'origin': 'https://chickfarmers.com',
+                'referer': 'https://chickfarmers.com/panel.php',
+                'user-agent': userAgent,
+            };
+        }
+
+        // بناء جسم الطلب (JSON)
+        function buildRequestBody() {
+            let amount = parseFloat(cffAmountInput.value);
+            if (isNaN(amount) || amount <= 0) amount = 2052;
+            const wallet = walletAddressInput.value.trim();
+            if (!wallet) {
+                throw new Error("عنوان المحفظة فارغ، الرجاء إدخال عنوان صالح.");
+            }
+            return {
+                action: 'create_withdrawal',
+                cff_amount: amount,
+                wallet_address: wallet,
+            };
+        }
+
+        // دالة الطلب الأساسية (Promise تعيد نص الرد)
+        async function performRequest() {
+            let requestBody;
+            try {
+                requestBody = buildRequestBody();
+            } catch (err) {
+                addLog(`❌ خطأ في البيانات: ${err.message}`, "error");
+                throw err;
+            }
+
+            // تأكد من أن الكوكيز محدثة قبل كل طلب (للتأكيد)
+            setCookiesFromInputs();
+
+            const headers = buildHeaders();
+            const url = 'https://chickfarmers.com/api.php';
+
+            addLog(`📡 إرسال طلب: المبلغ=${requestBody.cff_amount} | المحفظة=${requestBody.wallet_address.substring(0,8)}...`, "info");
+
+            try {
+                const response = await fetch(url, {
+                    method: 'POST',
+                    headers: headers,
+                    body: JSON.stringify(requestBody),
+                    credentials: 'include',    // مهم لإرسال الكوكيز التي تم تعيينها عبر document.cookie
+                    mode: 'cors',              // سيحاول CORS لكن قد يمنع الخادم. نضيف للتوافق
+                });
+
+                if (!response.ok) {
+                    throw new Error(`HTTP ${response.status} ${response.statusText}`);
+                }
+
+                const responseText = await response.text();
+                addLog(`📨 الرد الخام: ${responseText.length > 200 ? responseText.substring(0, 200) + '…' : responseText}`, "info");
+                return responseText;
+            } catch (fetchError) {
+                // أخطاء الشبكة أو CORS
+                let errorMsg = fetchError.message;
+                if (errorMsg.includes('Failed to fetch') || errorMsg.includes('CORS')) {
+                    errorMsg = "CORS / أمان المتصفح: لا يمكن الوصول للـ API. تأكد من تشغيل الصفحة على https://chickfarmers.com أو استخدم proxy/extension.";
+                }
+                addLog(`❌ خطأ في الطلب: ${errorMsg}`, "error");
+                throw fetchError;
+            }
+        }
+
+        // الحلقة الرئيسية (while true لكن بشكل غير متزامن مع تأخير)
+        async function startLoop() {
+            if (!isRunning) return;
+
+            try {
+                const responseText = await performRequest();
+
+                // التحقق من شرط التوقف: إذا كان الرد لا يحتوي على النص "You already have a pending withdrawal"
+                const pendingPhrase = "You already have a pending withdrawal";
+                if (!responseText.includes(pendingPhrase)) {
+                    // تم تغيير الرد أو نجاح سحب مختلف
+                    addLog(`🚨 [توقف] الرد لم يعد يحتوي على "${pendingPhrase}". تم تغيير الرد، توقف السكربت.`, "success");
+                    addLog(`📦 الرد الكامل: ${responseText}`, "success");
+                    stopScript(); // إيقاف الحلقة
+                    return;
+                } else {
+                    // الرد لا يزال يحتوي على الجملة ⇒ نستمر
+                    addLog(`⏳ لا يزال هناك طلب سحب معلق (pending). نستمر في المحاولة...`, "info");
+                }
+            } catch (err) {
+                // في حالة خطأ، نستمر بعد التأخير (مثل السكريبت الأصلي)
+                addLog(`⚠️ خطأ مستمر، سيتم إعادة المحاولة بعد 2 ثانية...`, "error");
+            }
+
+            // جدولة التكرار التالي بعد 2 ثانية (زي exact مثل time.sleep(2))
+            if (isRunning) {
+                currentTimeout = setTimeout(() => {
+                    startLoop();
+                }, 2000);
+            }
+        }
+
+        // بدء السكريبت
+        async function startScript() {
+            if (isRunning) {
+                addLog("⚠️ السكريبت يعمل بالفعل، أوقفه أولاً ثم أعد التشغيل.", "error");
+                return;
+            }
+
+            // التحقق من المدخلات الأساسية
+            const wallet = walletAddressInput.value.trim();
+            if (!wallet) {
+                addLog("❌ خطأ: عنوان المحفظة مطلوب! يرجى إدخال عنوان صالح.", "error");
+                return;
+            }
+
+            const amount = cffAmountInput.value;
+            if (!amount || parseFloat(amount) <= 0) {
+                addLog("⚠️ المبلغ غير صالح، سيتم استخدام 2052 افتراضياً.", "warn");
+                if(parseFloat(amount) <=0) cffAmountInput.value = 2052;
+            }
+
+            // تعيين الكوكيز قبل البدء
+            setCookiesFromInputs();
+
+            addLog("🚀 بدء عملية السحب التلقائي... سيرسل طلبات كل 2 ثانية حتى يتغير الرد.", "success");
+            isRunning = true;
+            startBtn.disabled = true;
+            stopBtn.disabled = false;
+            // بدأ الحلقة
+            startLoop();
+        }
+
+        // إيقاف السكريبت
+        function stopScript() {
+            if (!isRunning) {
+                addLog("ℹ️ السكريبت غير نشط حالياً.", "info");
+                return;
+            }
+            if (currentTimeout) {
+                clearTimeout(currentTimeout);
+                currentTimeout = null;
+            }
+            isRunning = false;
+            startBtn.disabled = false;
+            stopBtn.disabled = true;
+            addLog("🛑 تم إيقاف الحلقة يدوياً.", "info");
+        }
+
+        // ربط الأزرار
+        startBtn.addEventListener('click', startScript);
+        stopBtn.addEventListener('click', stopScript);
+        clearLogBtn.addEventListener('click', clearLog);
+
+        // ضبط الحالة الأولية للأزرار
+        stopBtn.disabled = true;
+        startBtn.disabled = false;
+
+        // إضافة رسالة توضيحية حول الكوكيز (للتذكير)
+        addLog("📌 تم تحويل السكريبت الأصلي من Python إلى JavaScript. السلوك: طلبات POST متكررة حتى تغير الرد.", "info");
+        addLog("💡 تلميح: يمكنك تعديل المبلغ والمحفظة والكوكيز قبل البدء.", "info");
+    })();
+</script>
+</body>
 </html>
